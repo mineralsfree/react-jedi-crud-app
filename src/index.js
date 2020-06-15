@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import {App} from './App';
+import {Router} from "react-router-dom";
 
-const element = <h1> Hello Javascript , { 2 + 7 }</h1>
-
+import history from "./helpers/history";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router history={history}>
+      <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

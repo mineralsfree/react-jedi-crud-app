@@ -1,48 +1,30 @@
-import React, { useState } from 'react';
-import Table from "./components/common/Table";
-import Form from './components/common/Form'
+import React from 'react';
 
-// import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
+import {Switch, Route, Redirect} from 'react-router-dom';
 
-const data = [
-    {first: 'Mark', last: 'Otto', handle: '@motto', id: '1'},
-    {first: 'Carl', last: 'Reno', handle: '@ceno', id: '2'},
-    {first: 'Steve', last: 'Smith', handle: '@ssteve', id: '3'}
-]
 
-const columns = Object.keys(data[0]);
+import {PeoplePage} from "./pages/PeoplePage";
+import {PlanetsPage} from "./pages/PlanetsPage";
+import {NotFound} from "./components/common/NotFound";
+import {Header} from "./components/Header";
+import {Routes} from "./helpers/Routes";
+import {StarshipPage} from "./pages/StarshipPage";
 
-function App() {
-    const [people, setPeople] = useState(data);
-    console.log(people);
+export const App = (props) => {
+  const {location} = props;
+  return (<>
+    <Header/>
+    <Switch location={location}>
+      <Route exact path="/">
+        <Redirect to={Routes.planets}/>
+      </Route>
+      <Route exact={true} path={Routes.people} component={PeoplePage}/>
+      <Route exact={true} path={Routes.planets} component={PlanetsPage}/>
+      <Route exact={true} path={Routes.starShip} component={StarshipPage}/>
+      <Route path={'*'} component={NotFound}>
 
-    const handleAppPerson = (personData) => {
-        const data = [...people, personData];
-        setPeople(data)
-    }
+      </Route>
+    </Switch></>)
 
-    const getInitialPeopleData = () => {
-        return columns.reduce((cols, columnName) => {
-            cols[columnName] = "";
-            return cols;
-        }, {})
-    }
-
-    return (
-        <div className="container">
-            <Table
-                data={people}
-                columns={columns}
-                tableDescriptor="People"
-            />
-            <Form
-                initialData={getInitialPeopleData()}
-                columns={columns}
-                onAddData={handleAppPerson}
-            />
-        </div>
-    );
 }
 
-export default App;
