@@ -15,7 +15,7 @@ const  content1 =(<React.StrictMode>
 const content2 = <App2/>
 
 ReactDOM.render(
-    content1
+  content1
   ,
   document.getElementById('root')
 );

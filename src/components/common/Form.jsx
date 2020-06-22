@@ -20,7 +20,6 @@ const Form = ({columns, initialData, onAddData}) => {
     if (!Object.keys(initialData).length) {
         return null;
     }
-
     return (
         <form>
             {columns.map( columnName => (
@@ -28,6 +27,7 @@ const Form = ({columns, initialData, onAddData}) => {
                 key={columnName}
                 name={columnName}
                 label={columnName}
+                disabled={columnName==='url'}
                 value={personData[columnName]}
                 type="input"
                 onChange={handleChange}
